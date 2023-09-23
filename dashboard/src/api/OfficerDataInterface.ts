@@ -1,0 +1,42 @@
+// Interface for the main data object
+export interface OfficerData {
+	id: number;
+	police_user_id: number;
+	police_user_name: string;
+	police_user_phone: string;
+	police_user_email: string;
+	police_user_image_url: string;
+	police_user_rank: string;
+	police_user_department: string;
+	assigned_nfc_device_id: number;
+	assigned_nfc_device_name: string;
+	assigned_nfc_device_nfc_data: string;
+	assigned_nfc_device_timestamp: string;
+	assigned_nfc_device_expires_at: string;
+	assigned_nfc_device_device_type: string;
+	assigned_nfc_device_latitude: number;
+	assigned_nfc_device_longitude: number;
+	assigned_nfc_device_altitude: number;
+	assigned_nfc_device_radius_in_meters: number;
+	assigned_nfc_device_circle_geojson: string;
+	assigned_nfc_device_auto_update_circle_geojson: boolean;
+	assigned_nfc_device_created_by: number;
+	assigned_nfc_device_assigned_to_bandobas: number;
+	last_scan_request_id: number;
+	last_scan_request_status: string;
+	last_scan_request_isAuth: boolean;
+	last_scan_request_expiry: string;
+	last_scan_request_request_time: string;
+	last_scan_request_police_scan_timestamp: string | null;
+	last_scan_request_network_admin: number;
+	last_scan_request_police: number;
+	fcm_token: string;
+	device_id: string;
+	duty_start_time: string;
+	duty_end_time: string;
+	department: string;
+	rank: string;
+	weapons: string;
+	instructions: string | null;
+	created_by: number;
+}

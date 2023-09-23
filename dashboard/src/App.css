@@ -1,0 +1,96 @@
+/* ----------------- */
+/* -----CHARTS------ */
+/* ----------------- */
+
+/* to make apex chart tooltip support dark mode */
+.apexcharts-tooltip {
+	/* background: black !important;
+	background-color: black !important;
+	opacity: 1 !important;
+	color: black !important; */
+}
+
+/* --------------- */
+/* ------MAP------ */
+/* --------------- */
+.mapboxgl-ctrl-logo {
+	display: none !important;
+}
+
+/* style attribution */
+.mapboxgl-ctrl-attrib-button {
+	display: none;
+}
+.mapboxgl-ctrl-attrib {
+	background-color: black !important;
+}
+.mapboxgl-ctrl-attrib a {
+	color: rgb(169, 215, 218) !important;
+}
+
+.mapboxgl-popup-tip,
+.mapboxgl-popup-close-button {
+	display: none;
+}
+
+.mapboxgl-popup-content {
+	padding: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	color: aliceblue;
+}
+
+.mapboxgl-popup-content {
+	background-color: rgba(14, 55, 146, 0.8) !important;
+	backdrop-filter: saturate(180%) blur(10px) !important;
+	-webkit-backdrop-filter: saturate(180%) blur(10px) !important;
+}
+
+/* Popup Container */
+.popup-container {
+	background-color: #ffffff;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	padding: 20px;
+	width: 300px;
+}
+
+/* Popup Title */
+.popup-container h2 {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+}
+
+/* List */
+.popup-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+/* List Items */
+.popup-list li {
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+.popup-list li strong {
+	display: inline-block;
+	width: 120px;
+}
+
+/* Highlighted Value */
+.popup-list li strong {
+	color: #333;
+	font-weight: 600;
+}
+
+/* Inside Polygon Status */
+.popup-list li span {
+	color: #45aaf2;
+}
+
+/* Rounded corners for the last item */
+.popup-list li:last-child {
+	margin-bottom: 0;
+}

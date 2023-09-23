@@ -1,0 +1,15 @@
+.auto-scroll-container {
+    display: flex;
+    flex-direction: column;
+    animation: scrollAnimation 30s linear infinite;
+}
+
+@keyframes scrollAnimation {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
