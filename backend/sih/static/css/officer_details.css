@@ -1,0 +1,79 @@
+.avatar {
+    width: 7.3em;
+    height: 7.3em;
+    border-radius: 50%;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+}
+
+.name {
+    margin: 5px 0;
+}
+
+.department,
+.rank {
+    margin-right: 5px;
+}
+
+.three-profile-boxes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.profile-box {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.profile-box-heading {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.profile-box-text {
+    font-size: 18px;
+}
+
+/* Add this to your existing CSS */
+.bandobast-details-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.bandobast-id,
+.bandobast-name,
+.duty-hours {
+    text-align: center;
+}
+
+.bandobast-id-heading,
+.bandobast-name-heading,
+.duty-hours-heading {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bandobast-id-text,
+.bandobast-name-text,
+.duty-hours-text {
+    font-size: 18px;
+}

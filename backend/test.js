@@ -1,0 +1,135 @@
+const js = {
+  location: [
+    {
+      is_moving: true,
+      uuid: "2f051f6e-9f21-4705-b779-4b76381a2b12",
+      timestamp: "2023-07-09T15:45:16.750Z",
+      odometer: 4400.3,
+      coords: {
+        latitude: 19.0737268,
+        longitude: 72.9083559,
+        accuracy: 8.7,
+        speed: 0.54,
+        speed_accuracy: -1,
+        heading: 182.85,
+        heading_accuracy: -1,
+        altitude: -46.4,
+        ellipsoidal_altitude: -46.4,
+        altitude_accuracy: 1.2,
+      },
+      activity: { type: "walking", confidence: 100 },
+      battery: { is_charging: False, level: 0.55 },
+      extras: {},
+    },
+  ],
+};
+
+const js2 = {
+  location: [
+    {
+      event: "providerchange",
+      provider: {
+        network: True,
+        gps: True,
+        enabled: True,
+        status: 3,
+        accuracyAuthorization: 0,
+        airplane: False,
+      },
+      is_moving: False,
+      uuid: "5856ca4d-7f85-4bc6-a1ef-56426e1e7276",
+      timestamp: "2023-07-09T20:28:18.212Z",
+      odometer: 0,
+      coords: {
+        latitude: 19.0735427,
+        longitude: 72.908296,
+        accuracy: 13.3,
+        speed: -1,
+        speed_accuracy: -1,
+        heading: -1,
+        heading_accuracy: -1,
+        altitude: -42.1,
+        ellipsoidal_altitude: -42.1,
+        altitude_accuracy: 1,
+      },
+      activity: { type: "still", confidence: 100 },
+      battery: { is_charging: False, level: 0.44 },
+      extras: {},
+    },
+    {
+      event: "motionchange",
+      is_moving: False,
+      uuid: "9acd6a92-e4f4-4ddf-ad69-6b3a608fd5c0",
+      timestamp: "2023-07-09T20:28:18.212Z",
+      odometer: 0,
+      coords: {
+        latitude: 19.0735427,
+        longitude: 72.908296,
+        accuracy: 13.3,
+        speed: -1,
+        speed_accuracy: -1,
+        heading: -1,
+        heading_accuracy: -1,
+        altitude: -42.1,
+        ellipsoidal_altitude: -42.1,
+        altitude_accuracy: 1,
+      },
+      activity: { type: "still", confidence: 100 },
+      battery: { is_charging: False, level: 0.44 },
+      extras: {},
+    },
+  ],
+};
+
+const js1 = {
+  location: [
+    {
+      is_moving: True,
+      uuid: "8ebd3085-f98b-45ac-b4fb-286549e066c8",
+      timestamp: "2023-07-09T14:31:20.242Z",
+      odometer: 1920.1,
+      coords: {
+        latitude: 19.0641298,
+        longitude: 72.9008106,
+        accuracy: 3.9,
+        speed: 3.94,
+        speed_accuracy: 0.06,
+        heading: 111.01,
+        heading_accuracy: 0.5,
+        altitude: -45.9,
+        ellipsoidal_altitude: -45.9,
+        altitude_accuracy: 1.4,
+      },
+      activity: { type: "on_bicycle", confidence: 100 },
+      battery: { is_charging: False, level: 0.6 },
+      extras: {},
+    },
+  ],
+};
+
+const js3 = {
+  location: [
+    {
+      is_moving: False,
+      uuid: "5cd8b7ef-f494-455b-825e-c99ec8bf1c2c",
+      timestamp: "2023-07-09T20:55:48.795Z",
+      odometer: 0,
+      coords: {
+        latitude: 19.0735464,
+        longitude: 72.9083035,
+        accuracy: 17.4,
+        speed: 0.13,
+        speed_accuracy: -1,
+        heading: 34.92,
+        heading_accuracy: -1,
+        altitude: -42.1,
+        ellipsoidal_altitude: -42.1,
+        altitude_accuracy: 1.1,
+      },
+      activity: { type: "still", confidence: 100 },
+      battery: { is_charging: False, level: 0.41 },
+      extras: {},
+    },
+  ],
+  bandobast_id: 6,
+};

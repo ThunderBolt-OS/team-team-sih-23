@@ -1,0 +1,12 @@
+.env
+.vscode
+.vercel
+venv
+virt
+__pycache__
+*.pyc
+*~
+*.swp
+service-account.json
+image.tar
+# db.sqlite3

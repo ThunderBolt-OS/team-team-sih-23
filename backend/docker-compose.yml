@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    networks:
+      - front
+      - back
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - daphne
+
+  redis:
+    image: redis
+    networks:
+      - back
+    ports:
+      - "6379:6379"
+
+  daphne:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/
+    ports:
+      - "8000:8000"
+    networks:
+      - front
+      - back
+    depends_on:
+      - redis
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app/
+    command: python manage.py runworker
+    networks:
+      - front
+      - back
+    depends_on:
+      - redis
+
+networks:
+  front:
+  back:

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bandobas Officer Dashboard</title>
+  </head>
+
+  <style>
+    th {
+      border: 1px solid red;
+    }
+    tr td {
+      border: 1px solid black;
+    }
+  </style>
+
+  <body>
+    <h1>Bandobas Officer Information</h1>
+
+    <div
+      style="display: flex; align-items: center; justify-content: space-between"
+    >
+      <ul>
+        <!-- <strong>Fcm Token:</strong> {{ officer.fcm_token }}<br /> -->
+        <li><strong>Device ID:</strong> {{ officer.device_id }}<br /></li>
+        <li><strong>Police User:</strong> {{ officer.police_user }}<br /></li>
+        <li>
+          <strong>Duty Start Time:</strong> {{ officer.duty_start_time }}<br />
+        </li>
+        <li>
+          <strong>Duty End Time:</strong> {{ officer.duty_end_time }}<br />
+        </li>
+        <li><strong>Department:</strong> {{ officer.department }}<br /></li>
+        <li><strong>Rank:</strong> {{ officer.rank }}<br /></li>
+        <li><strong>Weapons:</strong> {{ officer.weapons }}<br /></li>
+        <li><strong>Instructions:</strong> {{ officer.instructions }}<br /></li>
+        <li><strong>Created By:</strong> {{ officer.created_by }}<br /></li>
+        <li>
+          <strong>Assigned NFC Device:</strong>
+          {{ officer.assigned_nfc_device.id }} <br />
+        </li>
+        <h2>Efficiency: {{ score.efficiency_score }}%</h2>
+      </ul>
+    </div>
+
+    <h1>Bandobas Officer Scan Requests</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Is Auth</th>
+          <th>Expiry</th>
+          <th>Request Time</th>
+          <th>Police Scan Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for request in scan_requests %}
+        <tr>
+          <td>{{ request.status }}</td>
+          <td>{{ request.isAuth }}</td>
+          <td>{{ request.expiry }}</td>
+          <td>{{ request.request_time }}</td>
+          <td>{{ request.police_scan_timestamp }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h1>Bandobas Officer Locations</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Latitude</th>
+          <th>Longitude</th>
+          <th>Altitude</th>
+          <th>Accuracy</th>
+          <th>Speed</th>
+          <th>Device Distance</th>
+          <th>In Fence</th>
+          <th>Timestamp</th>
+          <!-- <th>Timestamp</th> -->
+          <th>Is Moving</th>
+          <!-- <th>Speed Accuracy</th> -->
+          <th>Heading</th>
+          <th>Heading Accuracy</th>
+          <th>Altitude</th>
+          <th>Altitude Accuracy</th>
+          <th>Battery Level</th>
+          <th>Battery Is Charging</th>
+          <th>Activity Type</th>
+          <th>Activity Confidence</th>
+          <!-- <th>Bearing</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for location in officer_locations %}
+        <tr>
+          <td>{{ location.latitude }}</td>
+          <td>{{ location.longitude }}</td>
+          <td>{{ location.altitude }}</td>
+          <td>{{ location.location_accuracy }}</td>
+          <td>{{ location.speed }}</td>
+          <td>{{ location.distance_from_nfc_device|floatformat:2 }}</td>
+          <td>{{ location.is_point_inside_polygon }}</td>
+          <td>{{ location.client_timestamp }}</td>
+          <!-- <td>{{ location.timestamp }}</td> -->
+          <td>{{ location.is_moving }}</td>
+          <!-- <td>{{ location.speed_accuracy }}</td> -->
+          <td>{{ location.heading }}</td>
+          <td>{{ location.heading_accuracy }}</td>
+          <td>{{ location.ellipsoidal_altitude }}</td>
+          <td>{{ location.altitude_accuracy }}</td>
+          <td>{{ location.battery_level }}</td>
+          <td>{{ location.battery_is_charging }}</td>
+          <td>{{ location.activity_type }}</td>
+          <td>{{ location.activity_confidence }}</td>
+          <!-- <td>{{ location.bearing }}</td> -->
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

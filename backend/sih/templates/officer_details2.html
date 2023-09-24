@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Officer Profile Summary</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: conic-gradient(
+          from 136.11deg at 39.58% 43.78%,
+          #f5f6ff -56.04deg,
+          #f8f9ff 8.89deg,
+          #f4f8ff 120.09deg,
+          #f5f6ff 303.96deg,
+          #f8f9ff 368.89deg
+        );
+      }
+      .container {
+        display: flex;
+        max-width: 1000px;
+        margin: 0 auto;
+        /* padding: 20px; */
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .left-column {
+        flex: 1;
+        /* padding: 20px; */
+        background-color: #f5f5f5;
+        border-radius: 10px;
+      }
+      .right-column {
+        flex: 2;
+        /* padding: 20px; */
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+      .name {
+        margin: 0;
+        font-size: 24px;
+      }
+      .section {
+        padding: 10px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .position {
+        font-size: 18px;
+        color: #555;
+      }
+      .section-heading {
+        color: #4527a0;
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      .section-content {
+        font-size: 16px;
+        margin-bottom: 20px;
+        color: #0a1a66;
+      }
+      .chart-container {
+        text-align: center;
+        width: 25;
+      }
+
+      /* Chip-like styling */
+      .chip {
+        display: inline-block;
+        background-color: #e0e0e0;
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-size: 14px;
+        margin: 4px;
+      }
+
+      .chip.on-time {
+        background-color: #4caf50;
+        color: white;
+      }
+      .chip.late {
+        background-color: #f44336;
+        color: white;
+      }
+      .chip.pending {
+        background-color: #ffc107;
+        color: black;
+      }
+
+      .bandobast-details {
+        background-color: #f5f5f5;
+        padding: 10px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .bandobast-id {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .bandobast-name {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .duty-hours {
+        font-size: 16px;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="left-column">
+        <div class="profile">
+          <img
+            class="avatar"
+            src="{{ officer.police_user.image_url }}"
+            alt="Profile Image"
+          />
+          <div class="avatar-details">
+            <h1 class="name">{{ officer.police_user.name }}</h1>
+            <p class="position">
+              {{ officer.police_user.department }}, {{ officer.police_user.rank }}
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div class="section">
+          <h2 class="section-heading">Contact</h2>
+          <p class="section-content">Email: {{ officer.police_user.email }}</p>
+          <p class="section-content">Phone: {{ officer.police_user.phone }}</p>
+        </div>
+        <hr />
+        <div class="section">
+          <h2 class="section-heading">Health Score</h2>
+          <div class="apexChart"></div>
+          <h4 class="health-score-category">
+            Health category: {{ health_category }}
+          </h4>
+        </div>
+      </div>
+      <div class="right-column">
+        <div class="section">
+          <h2 class="section-heading">Percentage of Outside Geo Fence</h2>
+          <div class="chart-container">
+            <canvas id="efficiencyChart" width="200" height="200"></canvas>
+            <div id="gauageChart"></div>
+          </div>
+          <div class="efficiency">
+            <strong class="section-content"> Efficiency: </strong>
+            <span>{{ score.efficiency_score }}%</span>
+          </div>
+          <div class="remaining">
+            <strong class="section-content"> Remaining: </strong>
+            <span>{{ remaining_score }}%</span>
+          </div>
+        </div>
+        <hr />
+        <div class="section">
+          <h2 class="section-heading">Scan Requests</h2>
+          <p class="section-content">
+            <span class="chip on-time">On-time: {{ score.on_time_count }}</span>
+            <span class="chip late">Late: {{ score.late_count }}</span>
+            <span class="chip pending">Pending: {{ score.pending_count }}</span>
+          </p>
+        </div>
+        <hr />
+        <div class="section">
+          <h2 class="section-heading">Bandobast Details</h2>
+          <div class="bandobast-details">
+            <p class="bandobast-id">
+              ID: {{ officer.assigned_nfc_device.assigned_to_bandobas.id }}
+            </p>
+            <p class="bandobast-name">
+              Name: {{ officer.assigned_nfc_device.assigned_to_bandobas.name }}
+            </p>
+            <p class="duty-hours">Duty Time: {{ start }} - {{ end }}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="section">
+          <h2 class="section-heading">Inside Fence Overtime</h2>
+          <div class="chart-container">
+            <canvas id="officerChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      moment.locale("en");
+      var inside_fence = JSON.parse("{{ inside_fence|escapejs }}");
+      var time_stamp_array = JSON.parse("{{ time_stamp_iso|escapejs }}");
+
+      var ctx = document.getElementById("officerChart").getContext("2d");
+      var myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: time_stamp_array,
+          datasets: [
+            {
+              label: "Inside Fence",
+              data: inside_fence,
+              borderColor: "#7e57c2",
+              fill: false,
+            },
+          ],
+        },
+      });
+
+      var efficiencyScore = parseFloat("{{ score.efficiency_score }}");
+      var remainingScore = 100 - efficiencyScore;
+
+      var efficiencyChart = new Chart(
+        document.getElementById("efficiencyChart"),
+        {
+          type: "pie",
+          data: {
+            labels: ["Efficiency", "Remaining"],
+            datasets: [
+              {
+                data: [efficiencyScore, remainingScore],
+                backgroundColor: ["#7e57c2", "#2888FF"],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+              display: true,
+              position: "bottom",
+            },
+          },
+        }
+      );
+
+      // ApexCharts Initialization
+
+      var options = {
+        series: ["{{ health_score }}"],
+        chart: {
+          height: 200,
+          type: "radialBar",
+          // offsetY: -10,
+        },
+        plotOptions: {
+          radialBar: {
+            startAngle: -135,
+            endAngle: 135,
+            dataLabels: {
+              name: {
+                fontSize: "12px",
+                color: undefined,
+                offsetY: 120,
+              },
+              value: {
+                offsetY: 76,
+                fontSize: "15px",
+                color: undefined,
+                formatter: function (val) {
+                  return val + "%";
+                },
+              },
+            },
+          },
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shade: "dark",
+            shadeIntensity: 0.15,
+            inverseColors: false,
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 50, 65, 91],
+          },
+        },
+        stroke: {
+          dashArray: 4,
+        },
+        labels: ["Officer health score"],
+      };
+
+      var chart = new ApexCharts(document.querySelector(".apexChart"), options);
+      chart.render();
+    </script>
+  </body>
+</html>

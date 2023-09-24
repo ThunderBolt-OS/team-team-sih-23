@@ -1,0 +1,22 @@
+features based on which the score will be predicted
+1. last time PUC
+2. details of PUC
+3. last time insurance
+4. size of vehicle
+5. age of vehicle
+6. type of vehicle (AC bus, non AC bus, electric bus, CNG bus, diesel bus)
+
+{
+  "vehicleInformation": {
+    "lastTimePUC": "2023-08-15",
+    "detailsOfPUC": {
+      "carbonDioxidePercentage": "2.5%",
+      "hydrocarbonLevelPPM": 50,
+      "expiryDate": "2024-08-15"
+    },
+    "lastTimeInsurance": "2023-07-20",
+    "sizeOfVehicle": "Large",
+    "ageOfVehicle": "5 years",
+    "typeOfVehicle": "AC Bus"
+  }
+}

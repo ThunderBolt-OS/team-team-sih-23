@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_TAG = "backend:${env.BUILD_NUMBER}"
+        DOCKER_COMPOSE_FILE = "docker-compose.yml"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    // Build the Docker image for the Django app
+                    docker.build("${IMAGE_TAG}", "-f Dockerfile .")
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Add your test commands here
+                sh 'docker run --rm ${IMAGE_TAG} python manage.py test'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Copy the nginx.conf file to the workspace
+                sh 'cp nginx.conf ${WORKSPACE}'
+
+                // Build and start the Docker containers using docker-compose
+                sh "docker-compose -f ${DOCKER_COMPOSE_FILE} build --no-cache"
+                sh "docker-compose -f ${DOCKER_COMPOSE_FILE} up -d"
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up Docker images and containers after the build
+            sh "docker-compose -f ${DOCKER_COMPOSE_FILE} down --volumes --remove-orphans"
+            sh 'docker image prune -f'
+        }
+    }
+}
