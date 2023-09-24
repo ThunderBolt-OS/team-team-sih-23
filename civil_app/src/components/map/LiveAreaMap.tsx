@@ -126,7 +126,7 @@ const LiveAreaMap = (props: LiveAreaMapProps) => {
     // Mock implementation
     return new Promise<number[]>((resolve) => {
       setTimeout(() => {
-        const tripIDs = new Array(1).fill(0).map<number>((i) => i + 1);
+        const tripIDs = new Array(6).fill(0).map<number>((_, i) => i + 1);
         resolve(tripIDs);
       }, 1000);
     });
@@ -204,7 +204,7 @@ const LiveAreaMap = (props: LiveAreaMapProps) => {
                 lat={loc.lat}
                 lon={loc.lon}
                 onClick={() => {
-                  handleBusMarkerClick(i * 100);
+                  handleBusMarkerClick(((i % 3) + 1) * 100);
                 }}
               />
             ))}

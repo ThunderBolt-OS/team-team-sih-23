@@ -13,8 +13,15 @@ interface CustomMarkerProps {
 }
 
 function CustomMarker(props: CustomMarkerProps) {
+  function handleClick() {
+    if (props.onClick) props.onClick();
+  }
   return (
-    <Marker latitude={props.lat} longitude={props.lon}>
+    <Marker
+      latitude={props.lat}
+      longitude={props.lon}
+      onClick={() => handleClick()}
+    >
       <MarkerBody type={props.type} />
     </Marker>
   );

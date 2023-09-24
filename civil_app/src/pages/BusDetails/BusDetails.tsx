@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Typography, Card, Grid, Button } from "@mui/material";
 import HailIcon from "@mui/icons-material/Hail";
 import Navbar from "../../components/Navbar";
@@ -6,11 +6,14 @@ import { useParams } from "react-router-dom";
 import BusRouteMap from "../../components/map/BusRouteMap";
 import BuseseContext from "../../context/BusesContext";
 import NotFound from "../NotFound/NotFound";
+import { enqueueSnackbar } from "notistack";
+import BusRoutesContext from "../../context/BusRoutesContext";
+import { addMinutes } from "../../utils/dateFunctions";
 
 function BusDetails() {
   const { data: busData } = useContext(BuseseContext);
+  const { data: busRoutes } = useContext(BusRoutesContext);
   const { busNumber } = useParams();
-  if (busNumber === undefined) return <></>;
 
   const [data, setData] = React.useState<object>({
     "Arriving By": new Date().toLocaleTimeString(),
@@ -19,26 +22,33 @@ function BusDetails() {
   });
 
   const [crowdLevel, setCrowdLevel] = React.useState<number>(0);
+  const [finalDestination, setFinalDestination] = React.useState<string | null>(
+    null,
+  );
 
   React.useEffect(() => {
     if (busData[busNumber]) {
       setData({
-        "Arriving By": new Date().toLocaleTimeString(),
-        "Bus Type": busData[busNumber].type,
-        "Reaching In": new Date().toLocaleTimeString(),
+        "Arriving By": addMinutes(new Date(), 5),
+        "Fuel Type": busData[busNumber].type,
+        "Reaching In": addMinutes(new Date(), busRoutes[busNumber].totalTime),
       });
       setCrowdLevel(busData[busNumber].crowdLevel);
     }
+    if (busRoutes[busNumber]) {
+      const stops = busRoutes[busNumber].stops;
+      setFinalDestination(stops[stops.length - 1].name);
+    }
   }, [busData, busNumber]);
 
-  if (!busData[busNumber]) return <NotFound />;
+  if (!busData[busNumber] || !busNumber) return <NotFound />;
 
   return (
     <>
       <Navbar isGoBack />
       <Box m={2}>
         <Typography fontSize="16px">Final Stop:</Typography>
-        <Typography fontSize="24px">Z Stop, Earth</Typography>
+        <Typography fontSize="24px">{finalDestination}</Typography>
         <Grid container spacing={2} my={1}>
           {Object.keys(data).map((key) => (
             <Grid item xs={6} sm={3}>
@@ -73,7 +83,7 @@ function BusDetails() {
         </Grid>
       </Box>
       <BusRouteMap busNumber={parseInt(busNumber)} />
-      <Box position="absolute" bottom="0" width="100vw" p={2}>
+      <Box position="absolute" bottom="0" width="100vw" p={2} zIndex={1000}>
         <Button variant="contained" fullWidth color="error">
           SOS
         </Button>

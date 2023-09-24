@@ -1,8 +1,22 @@
 import React from "react";
-import { Box, Typography, Card, Chip } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Card,
+  Chip,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  StepLabel,
+  Stepper,
+  Step,
+} from "@mui/material";
+import { BusObject } from "./types";
+
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { BusObject } from "./types";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 
 function BusRouteCard({
   busName,
@@ -11,58 +25,84 @@ function BusRouteCard({
   allStops,
   status,
 }: BusObject) {
+  const navigate = useNavigate();
   return (
-    <Card
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        p: 2,
-        my: 2,
-        border: "1px solid #eee",
-      }}
-    >
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-        borderBottom="1px solid #eeeeee"
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
       >
-        <Box display="flex" alignItems="center">
-          <DirectionsBusIcon sx={{ fontSize: "26px", mr: 1 }} />
-          <Typography fontSize="26px" fontWeight="bold">
-            {busName}
-          </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            px: 2,
+            my: 1,
+            width: "100%",
+          }}
+        >
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            borderBottom="1px solid #eeeeee"
+            onClick={() => navigate("/dashboard/busDetails/" + busName)}
+          >
+            <Box display="flex" alignItems="center">
+              <DirectionsBusIcon sx={{ fontSize: "24px", mr: 1 }} />
+              <Typography fontSize="24px" fontWeight="bold">
+                {busName}
+              </Typography>
+            </Box>
+            {status && <Chip label={status} />}
+          </Box>
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-evenly"
+            pt={2}
+          >
+            <Box>
+              <Typography fontSize="18px" fontWeight="bold">
+                {startStop.name}
+              </Typography>
+              <Typography>{startStop.estimatedTime}</Typography>
+            </Box>
+            <Box>
+              <ArrowForwardIcon
+                sx={{
+                  fontSize: "30px",
+                }}
+              />
+            </Box>
+            <Box>
+              <Typography fontSize="18px" fontWeight="bold">
+                {endStop.name}
+              </Typography>
+              <Typography>{endStop.estimatedTime}</Typography>
+            </Box>
+          </Box>
         </Box>
-        {status && <Chip label={status} />}
-      </Box>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="space-evenly"
-        pt={2}
-        pb={1}
-      >
-        <Box>
-          <Typography fontSize="22px" fontWeight="bold">
-            {startStop.name}
-          </Typography>
-          <Typography>{startStop.estimatedTime}</Typography>
-        </Box>
-        <Box>
-          <ArrowForwardIcon
-            sx={{
-              fontSize: "30px",
-            }}
-          />
-        </Box>
-        <Box>
-          <Typography fontSize="22px" fontWeight="bold">
-            {endStop.name}
-          </Typography>
-          <Typography>{endStop.estimatedTime}</Typography>
-        </Box>
-      </Box>
-    </Card>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Stepper activeStep={-1} orientation="vertical">
+          {allStops.map((step) => (
+            <Step key={step.label}>
+              <StepLabel
+                optional={
+                  <Typography variant="caption">
+                    {step.estimatedTime}
+                  </Typography>
+                }
+              >
+                {step.name}
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </AccordionDetails>
+    </Accordion>
   );
 }
 

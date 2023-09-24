@@ -58,7 +58,6 @@ function Home() {
     });
   };
   const handleOnSubmit = () => {
-    console.log(formData);
     navigate("routeDetails", {
       state: formData,
     });
@@ -158,7 +157,7 @@ function Home() {
           </Grid>
         </Grid>
       </Box>
-      <Box m={2}>
+      {/* <Box m={2}>
         <Typography fontSize="20px">Offers</Typography>
         <Box>
           {featuresData.map(({ title, subTitle, icon, link }) => (
@@ -170,7 +169,7 @@ function Home() {
             />
           ))}
         </Box>
-      </Box>
+      </Box> */}
       <Box mx={2} borderRadius={1}>
         <LiveAreaMap />
       </Box>

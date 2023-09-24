@@ -11,8 +11,8 @@ function BusesProvider(props: PropsWithChildren) {
     // Using mock data
     const mockStopsData: BusesContextValueDataType["data"] = {
       100: { busNumber: 100, type: "CNG", crowdLevel: 1 },
-      200: { busNumber: 200, type: "AC", crowdLevel: 2 },
-      300: { busNumber: 300, type: "NON-AC", crowdLevel: 2 },
+      200: { busNumber: 200, type: "DISEL", crowdLevel: 2 },
+      300: { busNumber: 300, type: "PETROL", crowdLevel: 2 },
     };
     setData(mockStopsData);
   }, []);

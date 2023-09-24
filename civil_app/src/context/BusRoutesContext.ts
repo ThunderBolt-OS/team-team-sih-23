@@ -7,11 +7,12 @@ export type BusRoutesContextValueType = {
     number, // Bus number
     {
       busNumber: number;
+      totalTime: number;
       stops: Array<
         PositionDataInterface & {
           id: number;
           name: string;
-          estimatedTime: Date;
+          estimatedTime: string;
         }
       >;
     }

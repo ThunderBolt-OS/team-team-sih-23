@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Typography, Card } from "@mui/material";
 
 import RoomIcon from "@mui/icons-material/Room";
@@ -8,36 +8,29 @@ import { BusObject } from "../../components/types";
 import Navbar from "../../components/Navbar";
 import BusRoutesContext from "../../context/BusRoutesContext";
 import { useLocation } from "react-router-dom";
-import { addMinutes } from "../../utils/dateFunctions";
 
-const topData = [
-  {
-    icon: <RoomIcon sx={{ fontSize: "30px" }} />,
-    name: "Distance",
-    value: "10kms",
-  },
-  {
-    icon: <AccessTimeIcon sx={{ fontSize: "30px" }} />,
-    name: "Time",
-    value: "30mins",
-  },
-  //   {
-  // icon: <AccessTimeIcon sx={{ fontSize: "30px" }} />,
-  // name: "Carbon Emission",
-  // value: "30%",
-  //   },
-  //   {
-  //     icon: <AccessTimeIcon sx={{ fontSize: "30px" }} />,
-  //     name: "Pollution Rate",
-  //     value: "30mins",
-  //   },
-];
 function RouteDetails() {
   const { data } = useContext(BusRoutesContext);
   const { state } = useLocation();
 
   const [routes, setRoutes] = React.useState<Array<BusObject> | null>([]);
-
+  const [topData, setTopData] = useState([
+    {
+      icon: <RoomIcon sx={{ fontSize: "30px" }} />,
+      name: "Distance",
+      value: "18kms",
+    },
+    {
+      icon: <AccessTimeIcon sx={{ fontSize: "30px" }} />,
+      name: "Time",
+      value: "30mins",
+    },
+    //   {
+    // icon: <AccessTimeIcon sx={{ fontSize: "30px" }} />,
+    // name: "Carbon Emission",
+    // value: "30%",
+    //   },
+  ]);
   React.useEffect(() => {
     const temp = Object.keys(data).map((key) => ({
       busName: data[key].busNumber,
@@ -47,7 +40,7 @@ function RouteDetails() {
     }));
 
     setRoutes(temp as [BusObject]);
-  }, []);
+  }, [data]);
 
   return (
     <>
